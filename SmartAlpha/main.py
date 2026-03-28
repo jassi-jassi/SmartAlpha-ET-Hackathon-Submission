@@ -51,11 +51,6 @@ class SmartAlpha:
         self._validate_env()
         print(BANNER)
 
-    def _validate_env(self):
-        if not os.getenv("ANTHROPIC_API_KEY"):
-            print("⚠️  ANTHROPIC_API_KEY not set.")
-            print("   Local: create a .env file with ANTHROPIC_API_KEY=sk-ant-...")
-            print("   Colab: from utils.llm import set_api_key_colab; set_api_key_colab('sk-ant-...')")
 
     def run(self, scenario: str, save_output: bool = True) -> dict:
         """
