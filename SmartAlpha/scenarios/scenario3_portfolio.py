@@ -149,7 +149,7 @@ Return this JSON:
   "portfolio_concentration_factor": "explanation of which holdings drive the impact"
 }}"""
 
-    response = call_llm(system, user, TaskComplexity.SIMPLE, max_tokens=500)
+    response = call_llm(system, user, TaskComplexity.SIMPLE)
     if "```" in response:
         response = response.split("```json")[-1].split("```")[0].strip()
     explanation = json.loads(response)
