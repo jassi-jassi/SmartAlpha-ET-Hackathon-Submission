@@ -1,0 +1,6 @@
+git init
+git add .
+git commit -m "Initial SmartAlpha submission"
+git branch -M main
+git remote add origin https://github.com/jassi-jassi/SmartAlpha-ET-Hackathon-Submission.git
+git push -u origin main
