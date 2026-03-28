@@ -1,5 +1,4 @@
 import boto3
-import json
 from enum import Enum
 
 class TaskComplexity(Enum):
@@ -11,28 +10,23 @@ client = boto3.client("bedrock-runtime", region_name="us-east-1")
 
 def call_llm(system_prompt, user_prompt, complexity=TaskComplexity.COMPLEX):
 
-    model_id = "meta.llama3-70b-instruct-v1:0"
+    model_id = "us.meta.llama3-3-70b-instruct-v1:0"
 
     prompt = f"{system_prompt}\n\n{user_prompt}"
 
-    body = {
-        "messages": [
+    response = client.converse(
+        modelId=model_id,
+        messages=[
             {
                 "role": "user",
-                "content": prompt
+                "content": [{"text": prompt}]
             }
         ],
-        "max_gen_len": 500,
-        "temperature": 0.5
-    }
-
-    response = client.invoke_model(
-        modelId=model_id,
-        body=json.dumps(body),
-        contentType="application/json",
-        accept="application/json"
+        inferenceConfig={
+            "maxTokens": 500,
+            "temperature": 0.5,
+            "topP": 0.9
+        }
     )
 
-    result = json.loads(response["body"].read())
-    
-    return result["generation"]
+    return response["output"]["message"]["content"][0]["text"]
