@@ -1,171 +1,171 @@
-"""
-scenarios/scenario3_portfolio.py
-"""
 
-from utils.audit import AuditLog
-from utils.llm import call_llm, TaskComplexity
-from data.market_data import fetch_user_portfolio, fetch_market_events
-import json
+╔══════════════════════════════════════════════════════╗
+║         SmartAlpha AI — ET Hackathon 2026            ║
+║         Track 6: AI for the Indian Investor          ║
+╚══════════════════════════════════════════════════════╝
 
 
-# ✅ SAFE JSON PARSER
-def safe_json_parse(response: str):
-    try:
-        return json.loads(response)
-    except:
-        return {
-            "fallback": True,
-            "raw_output": str(response)[:300]
-        }
+───────────────────────────────────────────────────────
 
+🔍 Running Scenario 1: Bulk Deal Filing Analysis...
+  [1/4] DataAgent...
+  [2/4] SignalAgent...
+  [3/4] ContextAgent...
+  [4/4] AlertAgent...
 
-# ─────────────────────────────────────────
-# AGENT 1: Data Agent
-# ─────────────────────────────────────────
-def data_agent(audit: AuditLog):
-    portfolio = fetch_user_portfolio()
-    events = fetch_market_events()
+  💾 Output saved: outputs/bulk_deal_20260328_233855.json
 
-    audit.log(
-        agent="DataAgent",
-        action="fetch_portfolio_and_events",
-        input_summary="User portfolio + market events",
-        output_summary=f"{len(portfolio['holdings'])} stocks, {len(events)} events",
-        reasoning="Fetched portfolio and events",
-        citations=[e["citation"] for e in events]
-    )
-    return portfolio, events
+───────────────────────────────────────────────────────
 
+📈 Running Scenario 2: Technical Breakout + Conflicting Signals...
+  [1/4] DataAgent...
+  [2/4] PatternAgent...
+  [3/4] ConflictAgent...
+  [4/4] RecommendationAgent...
 
-# ─────────────────────────────────────────
-# AGENT 2: Impact Agent
-# ─────────────────────────────────────────
-def impact_agent(portfolio, events, audit):
+  💾 Output saved: outputs/technical_20260328_233857.json
 
-    system = "Calculate portfolio impact. Return JSON only."
-    user = f"{portfolio}\n{events}"
+───────────────────────────────────────────────────────
 
-    response = call_llm(system, user, TaskComplexity.COMPLEX)
-
-    if "```" in response:
-        response = response.split("```")[-1].strip()
-
-    results = safe_json_parse(response)
-
-    audit.log(
-        agent="ImpactAgent",
-        action="calculate_impact",
-        input_summary="portfolio + events",
-        output_summary=str(results)[:100],
-        reasoning="Impact calculated"
-    )
-
-    return results
-
-
-# ─────────────────────────────────────────
-# AGENT 3: Prioritisation Agent
-# ─────────────────────────────────────────
-def prioritisation_agent(impact_results, audit):
-
-    ranked = sorted(
-        impact_results,
-        key=lambda x: abs(x.get("total_portfolio_impact_rupees", 0)),
-        reverse=True
-    )
-
-    primary = ranked[0]
-    secondary = ranked[1] if len(ranked) > 1 else None
-
-    system = "Explain priority. Return JSON."
-    user = f"Primary: {primary}\nSecondary: {secondary}"
-
-    # ❌ removed max_tokens
-    response = call_llm(system, user, TaskComplexity.SIMPLE)
-
-    if "```" in response:
-        response = response.split("```")[-1].strip()
-
-    explanation = safe_json_parse(response)
-
-    result = {
-        "primary_event": primary,
-        "secondary_event": secondary,
-        "ranking": [r.get("event_title", "") for r in ranked],
-        "priority_rationale": explanation.get("priority_rationale", ""),
-    }
-
-    audit.log(
-        agent="PrioritisationAgent",
-        action="rank_events",
-        input_summary="impact results",
-        output_summary=str(primary.get("event_title")),
-        reasoning=explanation.get("priority_rationale", "")
-    )
-
-    return result
-
-
-# ─────────────────────────────────────────
-# AGENT 4: Alert Agent
-# ─────────────────────────────────────────
-def alert_agent(portfolio, prioritisation, audit):
-
-    primary = prioritisation["primary_event"]
-
-    system = "Generate alert. Return JSON."
-    user = f"{primary}"
-
-    response = call_llm(system, user, TaskComplexity.COMPLEX)
-
-    if "```" in response:
-        response = response.split("```")[-1].strip()
-
-    result = safe_json_parse(response)
-
-    audit.log(
-        agent="AlertAgent",
-        action="generate_alert",
-        input_summary="final step",
-        output_summary=str(result)[:100],
-        reasoning="Alert generated"
-    )
-
-    return result
-
-
-# ─────────────────────────────────────────
-# PIPELINE
-# ─────────────────────────────────────────
-def run_scenario3():
-    print("\n📊 Running Scenario 3: Portfolio-Aware News Prioritisation...")
-
-    audit = AuditLog("SCENARIO_3_PORTFOLIO")
-
-    try:
-        portfolio, events = data_agent(audit)
-        impact = impact_agent(portfolio, events, audit)
-        priority = prioritisation_agent(impact, audit)
-        alert = alert_agent(portfolio, priority, audit)
-
-        return {
-            "status": "SUCCESS",
-            "alert": alert,
-            "impact": impact,
-            "priority": priority,
-            "audit_trail": audit.to_dict()
-        }
-
-    except Exception as e:
-        audit.log(
-            agent="PipelineRunner",
-            action="error",
-            input_summary="pipeline",
-            output_summary=str(e),
-            reasoning="Recovered"
-        )
-        return {
-            "status": "ERROR",
-            "error": str(e),
-            "audit_trail": audit.to_dict()
-        }
+📊 Running Scenario 3: Portfolio-Aware News Prioritisation...
+{'bulk_deal': {'status': 'SUCCESS',
+  'company': 'ABC FMCG Ltd',
+  'alert': {'classification': 'DISTRESS_SELLING',
+   'confidence': 'HIGH',
+   'distress_signals': [],
+   'routine_signals': [],
+   'key_concern': '',
+   'data_points_used': []},
+  'signal': {'classification': 'DISTRESS_SELLING',
+   'confidence': 'HIGH',
+   'distress_signals': [],
+   'routine_signals': [],
+   'key_concern': '',
+   'data_points_used': []},
+  'context': {'classification': 'DISTRESS_SELLING',
+   'confidence': 'HIGH',
+   'distress_signals': [],
+   'routine_signals': [],
+   'key_concern': '',
+   'data_points_used': []},
+  'audit_trail': {'scenario_id': 'SCENARIO_1_BULK_DEAL',
+   'started_at': '2026-03-28T23:38:53.552267',
+   'completed_at': '2026-03-28T23:38:55.269286',
+   'total_steps': 4,
+   'trail': [{'step': 1,
+     'agent': 'DataAgent',
+     'action': 'fetch_and_validate_filing',
+     'input_summary': 'NSE bulk deal filing endpoint',
+     'output_summary': 'ABC FMCG Ltd — 4.2% stake sold at 6.0% discount',
+     'reasoning': 'Fetched bulk deal filing and earnings history.',
+     'timestamp': '2026-03-28T23:38:53.552334',
+     'confidence': '',
+     'citations': ['https://www.nseindia.com/companies-listing/corporate-filings-bulk-deals']},
+    {'step': 2,
+     'agent': 'SignalAgent',
+     'action': 'classify_bulk_deal',
+     'input_summary': 'Stake: 4.2%, Discount: 6.0%',
+     'output_summary': 'DISTRESS_SELLING (HIGH)',
+     'reasoning': '',
+     'timestamp': '2026-03-28T23:38:54.023711',
+     'confidence': '',
+     'citations': []},
+    {'step': 3,
+     'agent': 'ContextAgent',
+     'action': 'enrich_with_fundamentals',
+     'input_summary': 'Classification=DISTRESS_SELLING',
+     'output_summary': 'Risk: None',
+     'reasoning': '',
+     'timestamp': '2026-03-28T23:38:54.927430',
+     'confidence': '',
+     'citations': []},
+    {'step': 4,
+     'agent': 'AlertAgent',
+     'action': 'generate_retail_alert',
+     'input_summary': 'Final aggregation',
+     'output_summary': 'Generated',
+     'reasoning': '',
+     'timestamp': '2026-03-28T23:38:55.269263',
+     'confidence': '',
+     'citations': []}]}},
+ 'technical': {'status': 'SUCCESS',
+  'scenario': 'Technical Analysis',
+  'stock': 'XYZ Tech Ltd',
+  'recommendation': {'fallback': True, 'raw_output': ''},
+  'pattern': {'fallback': True, 'raw_output': ''},
+  'conflict_analysis': {'fallback': True,
+   'raw_output': '{\'fallback\': True, \'raw_output\': \'{"bull_case": "The RSI of 78 indicates a strong uptrend, suggesting the stock may continue to rise. However, it is nearing overbought territory, which could lead to a correction.", "bear_case": "The FII of -1.2 indicates a significant outflow of foreign investments,'},
+  'audit_trail': {'scenario_id': 'SCENARIO_2_TECHNICAL',
+   'started_at': '2026-03-28T23:38:55.270161',
+   'completed_at': '2026-03-28T23:38:57.871460',
+   'total_steps': 4,
+   'trail': [{'step': 1,
+     'agent': 'DataAgent',
+     'action': 'fetch_technical_indicators',
+     'input_summary': 'NSE price/volume feed + FII filing data',
+     'output_summary': 'XYZ Tech Ltd — RSI: 78, Breakout: True, FII: -1.2%',
+     'reasoning': 'Fetched OHLCV data, RSI, MACD, FII/DII flows from NSE.',
+     'timestamp': '2026-03-28T23:38:55.270211',
+     'confidence': '',
+     'citations': ['NSE Historical Data + Filing as of 2026-03-27']},
+    {'step': 2,
+     'agent': 'PatternAgent',
+     'action': 'detect_pattern',
+     'input_summary': 'RSI=78, Breakout=True',
+     'output_summary': "{'fallback': True, 'raw_output': ''}",
+     'reasoning': 'Pattern detection complete',
+     'timestamp': '2026-03-28T23:38:55.839899',
+     'confidence': '',
+     'citations': []},
+    {'step': 3,
+     'agent': 'ConflictAgent',
+     'action': 'resolve_conflict',
+     'input_summary': 'Bull vs Bear signals',
+     'output_summary': '{\'fallback\': True, \'raw_output\': \'{\\\'fallback\\\': True, \\\'raw_output\\\': \\\'{"bull_case": "The RSI of 7',
+     'reasoning': 'Conflict evaluated',
+     'timestamp': '2026-03-28T23:38:56.841198',
+     'confidence': '',
+     'citations': []},
+    {'step': 4,
+     'agent': 'RecommendationAgent',
+     'action': 'generate_recommendation',
+     'input_summary': 'Final decision',
+     'output_summary': "{'fallback': True, 'raw_output': ''}",
+     'reasoning': 'Recommendation generated',
+     'timestamp': '2026-03-28T23:38:57.871442',
+     'confidence': '',
+     'citations': []}]}},
+ 'portfolio': {'status': 'ERROR',
+  'error': "'str' object has no attribute 'get'",
+  'audit_trail': {'scenario_id': 'SCENARIO_3_PORTFOLIO',
+   'started_at': '2026-03-28T23:38:57.871991',
+   'completed_at': '2026-03-28T23:38:59.783284',
+   'total_steps': 3,
+   'trail': [{'step': 1,
+     'agent': 'DataAgent',
+     'action': 'fetch_portfolio_and_events',
+     'input_summary': 'User portfolio + market events',
+     'output_summary': '8 stocks, 2 events',
+     'reasoning': 'Fetched portfolio and events',
+     'timestamp': '2026-03-28T23:38:57.872028',
+     'confidence': '',
+     'citations': ['https://rbi.org.in/monetary-policy-2026-03',
+      'https://meity.gov.in/circular-2026-dl-47']},
+    {'step': 2,
+     'agent': 'ImpactAgent',
+     'action': 'calculate_impact',
+     'input_summary': 'portfolio + events',
+     'output_summary': '{\'fallback\': True, \'raw_output\': \'json\\n{\\n  "user_id": "retail_investor_001",\\n  "total_invested": ',
+     'reasoning': 'Impact calculated',
+     'timestamp': '2026-03-28T23:38:59.783248',
+     'confidence': '',
+     'citations': []},
+    {'step': 3,
+     'agent': 'PipelineRunner',
+     'action': 'error',
+     'input_summary': 'pipeline',
+     'output_summary': "'str' object has no attribute 'get'",
+     'reasoning': 'Recovered',
+     'timestamp': '2026-03-28T23:38:59.783280',
+     'confidence': '',
+     'citations': []}]}}}
