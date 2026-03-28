@@ -48,7 +48,6 @@ class SmartAlpha:
     """
 
     def __init__(self):
-        self._validate_env()
         print(BANNER)
 
 
