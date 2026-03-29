@@ -1,0 +1,120 @@
+{
+  "status": "SUCCESS",
+  "scenario": "Technical Breakout Analysis",
+  "stock": "XYZ Tech Ltd",
+  "recommendation": {
+    "recommendation_headline": "Cautious Entry on Pullback",
+    "stance": "CAUTIOUS_ENTRY",
+    "rationale": "The strong bullish breakout pattern and upward momentum indicators suggest a potential uptrend, but the overbought RSI signal, premium valuation, and FII selling pressure pose significant risks, making it prudent to exercise caution and consider entry on a pullback. The conflict between these signals creates uncertainty about the stock's potential to reach its price target. A cautious approach is warranted given the signal weights of 55% bullish and 45% bearish.",
+    "entry_strategy": {
+      "suggested_entry": "Rs.3350.0 or on a pullback to the 20-day moving average",
+      "position_sizing": "5-7% of portfolio allocation",
+      "stop_loss": "Rs.3200.0",
+      "target": "Rs.3600.0 within the next 6-8 weeks"
+    },
+    "what_to_watch": [
+      "RSI (14) moving below 70 to alleviate overbought conditions",
+      "FII buying pressure or reduction in selling pressure",
+      "Sector-wide valuation adjustments"
+    ],
+    "for_existing_holders": "Consider partial profit booking at Rs.3600.0 and re-evaluate position sizing based on risk tolerance",
+    "risk_reward_ratio": "1.2:1",
+    "disclaimer": "This is AI-generated analysis. Consult a SEBI-registered investment advisor before making any decisions."
+  },
+  "pattern": {
+    "primary_pattern": "Bullish Breakout",
+    "pattern_description": "The stock has broken out of its resistance level, indicating a potential uptrend and further price increase",
+    "historical_success_rate_pct": 62,
+    "volume_confirmation": true,
+    "price_target_if_successful": "Rs.3600.0",
+    "stop_loss_level": "Rs.3200.0",
+    "pattern_strength": "STRONG",
+    "momentum_indicators": {
+      "rsi_signal": "OVERBOUGHT",
+      "macd_signal": "Bullish crossover indicating upward momentum",
+      "volume_signal": "High volume on breakout confirms the pattern"
+    }
+  },
+  "conflict_analysis": {
+    "bull_case": {
+      "summary": "The strong bullish breakout pattern, confirmed by high volume, suggests a potential uptrend with a price target of Rs.3600.0, and the bullish MACD crossover indicates upward momentum.",
+      "supporting_signals": [
+        "Bullish Breakout pattern with 62% historical success rate",
+        "High volume confirmation on breakout",
+        "Bullish MACD crossover indicating upward momentum",
+        "Partial offset of FII selling pressure by DII buying"
+      ]
+    },
+    "bear_case": {
+      "summary": "The overbought RSI signal and premium valuation relative to the sector, combined with FII selling pressure, pose significant risks to the potential uptrend, making it prudent to exercise caution.",
+      "risk_signals": [
+        "RSI (14) at 78, indicating overbought conditions and pullback risk",
+        "FII selling pressure of -1.2% in the last filing",
+        "Premium valuation with P/E of 32.4 vs sector average of 28.0",
+        "Analyst consensus of HOLD, indicating limited upside potential"
+      ]
+    },
+    "conflict_summary": "The bullish breakout pattern and upward momentum indicators conflict with the overbought RSI signal, premium valuation, and FII selling pressure, creating uncertainty about the stock's potential to reach its price target of Rs.3600.0. While the pattern suggests a potential uptrend, the risk signals warn of a possible pullback, making it essential to weigh these conflicting signals carefully.",
+    "signal_weight": {
+      "bull_weight_pct": 55,
+      "bear_weight_pct": 45
+    },
+    "verdict": "CAUTIOUS_BULLISH"
+  },
+  "audit_trail": {
+    "scenario_id": "SCENARIO_2_TECHNICAL",
+    "started_at": "2026-03-29T10:52:43.145615",
+    "completed_at": "2026-03-29T10:52:50.274601",
+    "total_steps": 4,
+    "trail": [
+      {
+        "step": 1,
+        "agent": "DataAgent",
+        "action": "fetch_technical_indicators",
+        "input_summary": "NSE price/volume feed + FII filing data",
+        "output_summary": "XYZ Tech Ltd - RSI: 78, Breakout: True, FII: -1.2%",
+        "reasoning": "Fetched OHLCV, RSI, MACD, FII/DII flows, PE ratio from NSE.",
+        "timestamp": "2026-03-29T10:52:43.145659",
+        "confidence": "",
+        "citations": [
+          "NSE Historical Data + Filing as of 2026-03-27"
+        ]
+      },
+      {
+        "step": 2,
+        "agent": "PatternAgent",
+        "action": "detect_and_quantify_pattern",
+        "input_summary": "RSI=78, Breakout=True, Volume=2.3x",
+        "output_summary": "Pattern: Bullish Breakout - Strength: STRONG - Success rate: 62%",
+        "reasoning": "The stock has broken out of its resistance level, indicating a potential uptrend and further price increase",
+        "timestamp": "2026-03-29T10:52:45.749872",
+        "confidence": "STRONG",
+        "citations": []
+      },
+      {
+        "step": 3,
+        "agent": "ConflictAgent",
+        "action": "resolve_conflicting_signals",
+        "input_summary": "Bull: breakout+volume. Bear: RSI=78, FII=-1.2%",
+        "output_summary": "Verdict: CAUTIOUS_BULLISH - Bull 55% vs Bear 45%",
+        "reasoning": "The bullish breakout pattern and upward momentum indicators conflict with the overbought RSI signal, premium valuation, and FII selling pressure, creating uncertainty about the stock's potential to reach its price target of Rs.3600.0. While the pattern suggests a potential uptrend, the risk signals warn of a possible pullback, making it essential to weigh these conflicting signals carefully.",
+        "timestamp": "2026-03-29T10:52:48.199141",
+        "confidence": "",
+        "citations": []
+      },
+      {
+        "step": 4,
+        "agent": "RecommendationAgent",
+        "action": "generate_balanced_recommendation",
+        "input_summary": "Verdict=CAUTIOUS_BULLISH, Pattern success rate=62%",
+        "output_summary": "Stance: CAUTIOUS_ENTRY - Cautious Entry on Pullback",
+        "reasoning": "The strong bullish breakout pattern and upward momentum indicators suggest a potential uptrend, but the overbought RSI signal, premium valuation, and FII selling pressure pose significant risks, making it prudent to exercise caution and consider entry on a pullback. The conflict between these signals creates uncertainty about the stock's potential to reach its price target. A cautious approach is warranted given the signal weights of 55% bullish and 45% bearish.",
+        "timestamp": "2026-03-29T10:52:50.274504",
+        "confidence": "",
+        "citations": [
+          "NSE Historical Data + Filing as of 2026-03-27"
+        ]
+      }
+    ]
+  }
+}

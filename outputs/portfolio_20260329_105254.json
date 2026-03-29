@@ -1,0 +1,200 @@
+{
+  "status": "SUCCESS",
+  "scenario": "Portfolio-Aware News Prioritisation",
+  "alert": {
+    "alert_headline": "RBI Rate Cut Boosts HDFC Bank and SBI Holdings in Your Portfolio",
+    "severity_label": "HIGH ALERT",
+    "why_this_matters_to_you": "The RBI's 25bps repo rate cut is expected to positively impact your holdings in HDFC Bank and SBI, as lower borrowing costs and increased lending can boost the banks' profitability, contributing to your portfolio's overall value",
+    "estimated_impact": {
+      "rupee_change": 4260,
+      "direction": "POSITIVE",
+      "as_pct_of_portfolio": 0.85
+    },
+    "stock_level_actions": [
+      {
+        "stock": "HDFC Bank",
+        "action": "Hold",
+        "reason": "Expected gain of 3.0% due to reduced borrowing costs"
+      },
+      {
+        "stock": "SBI",
+        "action": "Hold",
+        "reason": "Expected gain of 3.0% due to reduced borrowing costs"
+      }
+    ],
+    "next_steps": [
+      "Review your portfolio allocation to ensure it remains aligned with your investment goals",
+      "Consider adding more banking sector stocks to your portfolio, given the positive impact of the rate cut",
+      "Schedule a review with your investment advisor within the next 24 hours to discuss potential adjustments to your portfolio"
+    ],
+    "disclaimer": "This is AI-generated analysis. Consult a SEBI-registered investment advisor before making any decisions."
+  },
+  "impact": [
+    {
+      "event_id": "EVT001",
+      "event_title": "RBI Repo Rate Cut by 25bps",
+      "affected_holdings": [
+        {
+          "stock_name": "HDFC Bank",
+          "current_value": 88000,
+          "impact_pct": 3.0,
+          "impact_rupees": 2640.0,
+          "direction": "GAIN"
+        },
+        {
+          "stock_name": "SBI",
+          "current_value": 54000,
+          "impact_pct": 3.0,
+          "impact_rupees": 1620.0,
+          "direction": "GAIN"
+        }
+      ],
+      "total_portfolio_impact_rupees": 4260.0,
+      "total_portfolio_impact_pct": 1.07,
+      "impact_direction": "POSITIVE",
+      "math_shown": "impact_rupees = current_value x (impact_pct / 100)",
+      "source_citation": "https://rbi.org.in/monetary-policy-2026-03"
+    },
+    {
+      "event_id": "EVT002",
+      "event_title": "MeitY Issues New Data Localisation Directive for IT Firms",
+      "affected_holdings": [
+        {
+          "stock_name": "Infosys",
+          "current_value": 65000,
+          "impact_pct": -2.5,
+          "impact_rupees": -1625.0,
+          "direction": "LOSS"
+        },
+        {
+          "stock_name": "Wipro",
+          "current_value": 43000,
+          "impact_pct": -2.5,
+          "impact_rupees": -1075.0,
+          "direction": "LOSS"
+        }
+      ],
+      "total_portfolio_impact_rupees": -2700.0,
+      "total_portfolio_impact_pct": -0.68,
+      "impact_direction": "NEGATIVE",
+      "math_shown": "impact_rupees = current_value x (impact_pct / 100)",
+      "source_citation": "https://meity.gov.in/circular-2026-dl-47"
+    }
+  ],
+  "priority": {
+    "primary_event": {
+      "event_id": "EVT001",
+      "event_title": "RBI Repo Rate Cut by 25bps",
+      "affected_holdings": [
+        {
+          "stock_name": "HDFC Bank",
+          "current_value": 88000,
+          "impact_pct": 3.0,
+          "impact_rupees": 2640.0,
+          "direction": "GAIN"
+        },
+        {
+          "stock_name": "SBI",
+          "current_value": 54000,
+          "impact_pct": 3.0,
+          "impact_rupees": 1620.0,
+          "direction": "GAIN"
+        }
+      ],
+      "total_portfolio_impact_rupees": 4260.0,
+      "total_portfolio_impact_pct": 1.07,
+      "impact_direction": "POSITIVE",
+      "math_shown": "impact_rupees = current_value x (impact_pct / 100)",
+      "source_citation": "https://rbi.org.in/monetary-policy-2026-03"
+    },
+    "secondary_event": {
+      "event_id": "EVT002",
+      "event_title": "MeitY Issues New Data Localisation Directive for IT Firms",
+      "affected_holdings": [
+        {
+          "stock_name": "Infosys",
+          "current_value": 65000,
+          "impact_pct": -2.5,
+          "impact_rupees": -1625.0,
+          "direction": "LOSS"
+        },
+        {
+          "stock_name": "Wipro",
+          "current_value": 43000,
+          "impact_pct": -2.5,
+          "impact_rupees": -1075.0,
+          "direction": "LOSS"
+        }
+      ],
+      "total_portfolio_impact_rupees": -2700.0,
+      "total_portfolio_impact_pct": -0.68,
+      "impact_direction": "NEGATIVE",
+      "math_shown": "impact_rupees = current_value x (impact_pct / 100)",
+      "source_citation": "https://meity.gov.in/circular-2026-dl-47"
+    },
+    "ranking": [
+      "RBI Repo Rate Cut by 25bps",
+      "MeitY Issues New Data Localisation Directive for IT Firms"
+    ],
+    "priority_rationale": "The RBI Repo Rate Cut by 25bps has a more significant impact on the portfolio due to its direct influence on the banking sector, where the portfolio has substantial holdings in HDFC Bank and SBI. This rate cut is expected to increase lending and decrease borrowing costs, thereby boosting the profitability of these banks and contributing to the portfolio's overall value.",
+    "impact_multiplier": "2.58x",
+    "portfolio_concentration_factor": "HDFC Bank and SBI, which comprise a significant portion of the portfolio, drive the primary event's impact due to their high sensitivity to changes in interest rates"
+  },
+  "audit_trail": {
+    "scenario_id": "SCENARIO_3_PORTFOLIO",
+    "started_at": "2026-03-29T10:52:50.275417",
+    "completed_at": "2026-03-29T10:52:54.819032",
+    "total_steps": 4,
+    "trail": [
+      {
+        "step": 1,
+        "agent": "DataAgent",
+        "action": "fetch_portfolio_and_events",
+        "input_summary": "User portfolio + market events",
+        "output_summary": "8 stocks, Rs.500,000 invested. 2 simultaneous events.",
+        "reasoning": "Fetched user portfolio holdings and live market events.",
+        "timestamp": "2026-03-29T10:52:50.275454",
+        "confidence": "",
+        "citations": [
+          "https://rbi.org.in/monetary-policy-2026-03",
+          "https://meity.gov.in/circular-2026-dl-47"
+        ]
+      },
+      {
+        "step": 2,
+        "agent": "ImpactAgent",
+        "action": "calculate_portfolio_impact",
+        "input_summary": "8 holdings x 2 events",
+        "output_summary": "RBI Repo Rate Cut by 25bp: Rs.4,260, MeitY Issues New Data Loc: Rs.-2,700",
+        "reasoning": "impact_rupees = current_value x (sector_impact_pct / 100) per holding",
+        "timestamp": "2026-03-29T10:52:52.175570",
+        "confidence": "HIGH",
+        "citations": []
+      },
+      {
+        "step": 3,
+        "agent": "PrioritisationAgent",
+        "action": "rank_events_by_portfolio_materiality",
+        "input_summary": "2 events ranked by absolute rupee impact",
+        "output_summary": "Priority: RBI Repo Rate Cut by 25bps (Rs.4,260)",
+        "reasoning": "The RBI Repo Rate Cut by 25bps has a more significant impact on the portfolio due to its direct influence on the banking sector, where the portfolio has substantial holdings in HDFC Bank and SBI. This rate cut is expected to increase lending and decrease borrowing costs, thereby boosting the profitability of these banks and contributing to the portfolio's overall value.",
+        "timestamp": "2026-03-29T10:52:53.188913",
+        "confidence": "HIGH",
+        "citations": []
+      },
+      {
+        "step": 4,
+        "agent": "AlertAgent",
+        "action": "generate_personalised_alert",
+        "input_summary": "Primary: RBI Repo Rate Cut by 25bps, Impact: Rs.4,260",
+        "output_summary": "RBI Rate Cut Boosts HDFC Bank and SBI Holdings in Your Portfolio",
+        "reasoning": "The RBI's 25bps repo rate cut is expected to positively impact your holdings in HDFC Bank and SBI, as lower borrowing costs and increased lending can boost the banks' profitability, contributing to your portfolio's overall value",
+        "timestamp": "2026-03-29T10:52:54.818941",
+        "confidence": "HIGH",
+        "citations": [
+          "https://rbi.org.in/monetary-policy-2026-03"
+        ]
+      }
+    ]
+  }
+}
